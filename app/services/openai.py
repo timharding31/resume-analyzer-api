@@ -1,9 +1,14 @@
+import os
 import openai
 
 from dotenv import dotenv_values
 
-openai.organization = dotenv_values('.env').get('OPENAI_ORG_ID')
-openai.api_key = dotenv_values('.env').get('OPENAI_API_KEY')
+openai.organization = os.environ.get(
+    'OPENAI_ORG_ID') or dotenv_values('.env').get('OPENAI_ORG_ID')
+openai.api_key = os.environ.get('OPENAI_API_KEY') or dotenv_values(
+    '.env').get('OPENAI_API_KEY')
+# openai.organization = dotenv_values('.env').get('OPENAI_ORG_ID')
+# openai.api_key = dotenv_values('.env').get('OPENAI_API_KEY')
 
 
 async def generateResponse(prompt: str, temperature: float = 0.2) -> str:
